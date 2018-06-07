@@ -23,15 +23,15 @@ $serviciosReferencias = new ServiciosReferencias();
 $fecha = date('Y-m-d');
 
 //$resProductos = $serviciosProductos->traerProductosLimite(6);
-$resMenu = $serviciosHTML->menu(utf8_encode($_SESSION['nombre_predio']),"Usuarios",$_SESSION['refroll_predio'],$_SESSION['sede']);
+$resMenu = $serviciosHTML->menu(utf8_encode($_SESSION['nombre_predio']),"Usuarios",$_SESSION['refroll_predio'],'');
 
 
 
 /////////////////////// Opciones para la creacion del formulario  /////////////////////
 $tabla 			= "dbusuarios";
 
-$lblCambio	 	= array("refroles","nombrecompleto","refsedes","refpersonal");
-$lblreemplazo	= array("Perfil","Nombre Completo","Asignar Sede","Asignar Personal al Usuario");
+$lblCambio	 	= array("refroles","nombrecompleto","refsedes","refclientes");
+$lblreemplazo	= array("Perfil","Nombre Completo","Asignar Sede","Asignar Cliente al Usuario");
 
 if ($_SESSION['idroll_predio'] != 1) {
 	$resRoles 	= $serviciosUsuario->traerRolesSimple();
@@ -40,17 +40,15 @@ if ($_SESSION['idroll_predio'] != 1) {
 	
 }
 
-$resSedes = $serviciosReferencias->traerSedes();
-$cadSedes = $serviciosFunciones->devolverSelectBox($resSedes,array(1),'');
 
 
 $cadRef = $serviciosFunciones->devolverSelectBox($resRoles,array(1),'');
 
-$refUsuarios = $serviciosReferencias->traerPersonal();
-$cadRef2 = $serviciosFunciones->devolverSelectBox($refUsuarios,array(3,4),' ');
+$refClientes = $serviciosReferencias->traerClientes();
+$cadRef2 = $serviciosFunciones->devolverSelectBox($refClientes,array(2,3),' ');
 
-$refdescripcion = array(0 => $cadRef, 1=>$cadSedes, 2=>$cadRef2);
-$refCampo 	=  array("refroles","refsedes","refpersonal"); 
+$refdescripcion = array(0 => $cadRef, 1=>$cadRef2);
+$refCampo 	=  array("refroles","refclientes"); 
 //////////////////////////////////////////////  FIN de los opciones //////////////////////////
 
 
@@ -61,7 +59,9 @@ $cabeceras 		= "	<th>Usuario</th>
 				<th>Password</th>
 				<th>Perfil</th>
 				<th>Email</th>
-				<th>Nombre Completo</th>";
+				<th>Nombre Completo</th>
+				<th>Cliente</th>
+				<th>Activo</th>";
 
 //////////////////////////////////////////////  FIN de los opciones //////////////////////////
 
@@ -71,9 +71,9 @@ $cabeceras 		= "	<th>Usuario</th>
 $formulario 	= $serviciosFunciones->camposTabla("insertarUsuario",$tabla,$lblCambio,$lblreemplazo,$refdescripcion,$refCampo);
 
 if ($_SESSION['idroll_predio'] != 1) {
-	$lstCargados 	= $serviciosFunciones->camposTablaView($cabeceras,$serviciosUsuario->traerUsuariosSimple(),5);
+	$lstCargados 	= $serviciosFunciones->camposTablaView($cabeceras,$serviciosUsuario->traerUsuariosSimple(),7);
 } else {
-	$lstCargados 	= $serviciosFunciones->camposTablaView($cabeceras,$serviciosUsuario->traerUsuarios(),5);
+	$lstCargados 	= $serviciosFunciones->camposTablaView($cabeceras,$serviciosUsuario->traerUsuarios(),7);
 }
 
 

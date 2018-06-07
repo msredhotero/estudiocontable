@@ -22,7 +22,7 @@ $serviciosReferencias 	= new ServiciosReferencias();
 $fecha = date('Y-m-d');
 
 //$resProductos = $serviciosProductos->traerProductosLimite(6);
-$resMenu = $serviciosHTML->menu(utf8_encode($_SESSION['nombre_predio']),"Clientes",$_SESSION['refroll_predio'],$_SESSION['sede']);
+$resMenu = $serviciosHTML->menu(utf8_encode($_SESSION['nombre_predio']),"Clientes",$_SESSION['refroll_predio'],'');
 
 
 /////////////////////// Opciones pagina ///////////////////////////////////////////////
@@ -34,15 +34,15 @@ $eliminar = "eliminarClientes";
 
 $insertar = "insertarClientes";
 
-$tituloWeb = "Gestión: Vinoteca";
+$tituloWeb = "Gestión: Estudio Contable";
 //////////////////////// Fin opciones ////////////////////////////////////////////////
 
 
 /////////////////////// Opciones para la creacion del formulario  /////////////////////
 $tabla 			= "dbclientes";
 
-$lblCambio	 	= array("nombrecompleto","fechanacimiento","telefono","direccion");
-$lblreemplazo	= array("Nombre Completo","Fecha Nacimiento","Teléfono","dirección");
+$lblCambio	 	= array("telefono","direccion");
+$lblreemplazo	= array("Teléfono","dirección");
 
 
 $cadRef 	= '';
@@ -57,10 +57,10 @@ $refCampo 	=  array();
 /////////////////////// Opciones para la creacion del view  apellido,nombre,nrodocumento,fechanacimiento,direccion,telefono,email/////////////////////
 $cabeceras 		= "	<th>Apellido</th>
 					<th>Nombre</th>
-					<th>Nro Documento</th>
-					<th>Fecha Nacimiento</th>
+					<th>CUIT</th>
 					<th>Dirección</th>
 					<th>Teléfono</th>
+					<th>Celular</th>
 					<th>Email</th>";
 
 //////////////////////////////////////////////  FIN de los opciones //////////////////////////
@@ -70,7 +70,7 @@ $cabeceras 		= "	<th>Apellido</th>
 
 $formulario 	= $serviciosFunciones->camposTabla($insertar ,$tabla,$lblCambio,$lblreemplazo,$refdescripcion,$refCampo);
 
-$lstCargados 	= $serviciosFunciones->camposTablaView($cabeceras,$serviciosReferencias->traerClientes(),7);
+$lstCargados 	= $serviciosFunciones->camposTablaView($cabeceras,$serviciosReferencias->traerClientes(),92);
 
 
 
@@ -128,72 +128,10 @@ if ($_SESSION['refroll_predio'] != 1) {
       });
     </script>
     
-    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzxyoH5wuPmahQIZLUBjPfDuu_cUHUBQY"
-  type="text/javascript"></script>
-    <style type="text/css">
-		#map
-		{
-			width: 100%;
-			height: 600px;
-			border: 1px solid #d0d0d0;
-		}
-  
-		
-	</style>
-    <script>
-	/* AIzaSyBzxyoH5wuPmahQIZLUBjPfDuu_cUHUBQY */
-		var map;
-		var markers = [];
-	 function localize() {
-
-			
-		var mapDiv = document.getElementById('map');
-		var laPlata= {lat: -34.9205283, lng: -57.9531703};
-		var map = new google.maps.Map(mapDiv, {
-			zoom: 13,
-			center: new google.maps.LatLng(-34.9205283, -57.9531703)
-		});
-		
-		//var latitud = map.coords.latitude;
-		//var longitud = map.coords.longitude;
-		/*
-		google.maps.event.addDomListener(mapDiv, 'click', function(e) {
-			window.alert('click en el mapa');
-		});
-		*/
-		map.addListener('click', function(e) {
-			
-			if (markers.length > 0) {
-				clearMarkers();
-			}
-			$('#latitud').val(e.latLng.lat());
-			$('#longitud').val(e.latLng.lng());	
-			placeMarkerAndPanTo(e.latLng, map);
-		});
-	 }
-	 
-		function placeMarkerAndPanTo(latLng, map) {
-			var marker = new google.maps.Marker({
-				position: latLng,
-				map: map
-			});
-			markers.push(marker);
-			map.panTo(latLng);
-			
-		}
-	
-	function clearMarkers() {
-		for (var i = 0; i < markers.length; i++) {
-			markers[i].setMap(null);
-		}
-	}
-		
-
- </script>-->
  
 </head>
 
-<body onLoad="localize()">
+<body>
 
  <?php echo $resMenu; ?>
 
@@ -326,6 +264,18 @@ $(document).ready(function(){
 			alert("Error, vuelva a realizar la acción.");	
 		  }
 	});//fin del boton modificar
+
+
+	$("#example").on("click",'.vararchivos', function(){
+		  usersid =  $(this).attr("id");
+		  if (!isNaN(usersid)) {
+			
+			url = "archivos.php?id=" + usersid;
+			$(location).attr('href',url);
+		  } else {
+			alert("Error, vuelva a realizar la acción.");	
+		  }
+	});//fin del boton archivos
 
 	 $( "#dialog2" ).dialog({
 		 	

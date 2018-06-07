@@ -172,11 +172,11 @@ class Servicios {
 				break;
 			case 92:
 				$cantidad = 7;
-				$classMod = 'varmodificarlibros';
-				$classEli = 'varborrarlibros';
-				$classEditar = 'vardescargar';
+				$classMod = 'varmodificar';
+				$classEli = 'varborrar';
+				$classEditar = 'vararchivos';
 				$iconoEditar = 'glyphicon glyphicon-download-alt';
-				$lblEditar	  = 'Descargar';
+				$lblEditar	  = 'Archivos';
 				$idresultados = "resultados";
 				break;
 			case 91:
@@ -406,7 +406,7 @@ class Servicios {
 		$sql	=	"show columns from ".$tabla;
 		$res 	=	$this->query($sql,0);
 		$label  = '';
-		$ocultar = array("fechacrea","fechacreacion","fechamodi","usuacrea","usuamodi","tipoimagen","utilidad","refviejo");
+		$ocultar = array("fechacrea","fechacreacion","fechamodi","usuacrea","usuamodi","tipoimagen","utilidad","type");
 		
 		$geoposicionamiento = array("latitud","longitud");
 		

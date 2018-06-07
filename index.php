@@ -8,8 +8,7 @@ $serviciosUsuarios = new ServiciosUsuarios();
 $serviciosReferencias = new ServiciosReferencias();
 $servicios = new Servicios();
 
-$resSedes = $serviciosReferencias->traerSedesActivas();
-$cadSedes = $servicios->devolverSelectBox($resSedes,array(1),'');
+
 
 ?>
 <!DOCTYPE HTML>
@@ -24,7 +23,7 @@ $cadSedes = $servicios->devolverSelectBox($resSedes,array(1),'');
 
 
 
-<title>Acceso Restringido: Teatro Ciego</title>
+<title>Acceso Restringido: Estudio Contable</title>
 
 
 
@@ -73,16 +72,7 @@ $cadSedes = $servicios->devolverSelectBox($resSedes,array(1),'');
         			$("#pass").attr('placeholder','Ingrese el password');
         			});
 					
-					
-					$("#sede").click(function(event) {
-        			$("#sede").removeClass("alert alert-danger");
-					$("#sede").attr('placeholder','Ingrese la sede');
-        			});
 
-        			$("#sede").change(function(event) {
-        			$("#sede").removeClass("alert alert-danger");
-        			$("#sede").attr('placeholder','Ingrese la sede');
-        			});
 					
 				
 				function validador(){
@@ -103,12 +93,7 @@ $cadSedes = $servicios->devolverSelectBox($resSedes,array(1),'');
         					$("#pass").attr('placeholder',$error);
         				}
 						
-						if ($("#sede").val() == "") {
-        					$error = "Es obligatorio el campo Sede.";
 
-        					$("#sede").addClass("alert alert-danger");
-        					$("#sede").attr('placeholder',$error);
-        				}
 						
 
 						
@@ -139,7 +124,6 @@ $cadSedes = $servicios->devolverSelectBox($resSedes,array(1),'');
         						$.ajax({
                                 data:  {email:		$("#email").val(),
 										pass:		$("#pass").val(),
-										sede:	$('#sede').val(),
 										accion:		'login'},
                                 url:   'ajax/ajax.php',
                                 type:  'post',
@@ -228,18 +212,6 @@ background-color: #ffffff; border:1px solid #101010; box-shadow: 2px 2px 3px #33
                 </div>
               </div>
               
-              
-              <div class="form-group">
-                <label for="sedes" class="col-md-2 control-label" style="color:#363636;text-align:left;">Sede</label>
-                <div class="col-lg-7">
-                <div class="input-group">
-                  <span class="input-group-addon"><span class="glyphicon glyphicon-flag"></span></span>
-                  <select class="form-control" id="sede" name="sede">
-                  	<?php echo $cadSedes; ?>
-                  </select>
-                </div>
-                </div>
-              </div>
               
               
               

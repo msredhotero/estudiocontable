@@ -22,7 +22,7 @@ $serviciosReferencias = new ServiciosReferencias();
 $fecha = date('Y-m-d');
 
 //$resProductos = $serviciosProductos->traerProductosLimite(6);
-$resMenu = $serviciosHTML->menu(utf8_encode($_SESSION['nombre_predio']),"Usuarios",$_SESSION['refroll_predio'],$_SESSION['sede']);
+$resMenu = $serviciosHTML->menu(utf8_encode($_SESSION['nombre_predio']),"Usuarios",$_SESSION['refroll_predio'],'');
 
 
 $id = $_GET['id'];
@@ -32,8 +32,8 @@ $resResultado = $serviciosReferencias->traerUsuariosPorId($id);
 /////////////////////// Opciones para la creacion del formulario  /////////////////////
 $tabla 			= "dbusuarios";
 
-$lblCambio	 	= array("refroles","nombrecompleto","refsedes","refpersonal");
-$lblreemplazo	= array("Perfil","Nombre Completo","Asignar Sede","Asignar Personal al Usuario");
+$lblCambio	 	= array("refroles","nombrecompleto","refsedes","refclientes");
+$lblreemplazo	= array("Perfil","Nombre Completo","Asignar Sede","Asignar Cliente al Usuario");
 
 if ($_SESSION['idroll_predio'] != 1) {
 	$resRoles 	= $serviciosUsuario->traerRolesSimple();
@@ -53,19 +53,18 @@ while ($rowTT = mysql_fetch_array($resRoles)) {
 	
 }
 
-$resSedes = $serviciosReferencias->traerSedes();
-$cadSedes = $serviciosFunciones->devolverSelectBoxActivo($resSedes,array(1),'',mysql_result($resResultado,0,'refsedes'));
 
-$refUsuarios = $serviciosReferencias->traerPersonal();
-$cadRef2 = $serviciosFunciones->devolverSelectBoxActivo($refUsuarios,array(3,4),' ',mysql_result($resResultado,0,'refpersonal'));
 
-$refdescripcion = array(0 => $cadRef, 1=>$cadSedes, 2=>$cadRef2);
-$refCampo 	=  array("refroles","refsedes","refpersonal"); 
+$refClientes = $serviciosReferencias->traerClientes();
+$cadRef2 = $serviciosFunciones->devolverSelectBox($refClientes,array(2,3),' ');
+
+$refdescripcion = array(0 => $cadRef, 1=>$cadRef2);
+$refCampo 	=  array("refroles","refclientes"); 
 //////////////////////////////////////////////  FIN de los opciones //////////////////////////
 
 
 
-$formulario 	= $serviciosFunciones->camposTablaModificar($id, "idusuario", "modificarUsuario",$tabla,$lblCambio,$lblreemplazo,$refdescripcion,$refCampo);
+$formulario 	= $serviciosFunciones->camposTablaModificar($id, "idusuario", "modificarUsuarios",$tabla,$lblCambio,$lblreemplazo,$refdescripcion,$refCampo);
 
 
 if ($_SESSION['idroll_predio'] != 1) {
@@ -89,7 +88,7 @@ if ($_SESSION['idroll_predio'] != 1) {
 
 
 
-<title>Gestión: Teatro Ciego</title>
+<title>Gestión: Estudio Contable</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
@@ -205,6 +204,13 @@ $(document).ready(function(){
 		url = "index.php";
 		$(location).attr('href',url);
 	});//fin del boton modificar
+
+
+	if ('<?php echo mysql_result($resResultado,0,"activo"); ?>' == 'Si') {
+		$('#activo').prop('checked',true);
+	} else {
+		$('#activo').prop('checked',false);
+	}
 	
 	$('.varborrar').click(function(event){
 		  usersid =  $(this).attr("id");

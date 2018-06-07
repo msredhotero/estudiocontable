@@ -36,9 +36,9 @@ function recuperar($email) {
 		echo 'Email incorrecto';	
 	}
 }
-function login($usuario,$pass,$sede) {
+function login($usuario,$pass) {
 	
-	$sqlusu = "select * from dbusuarios where email = '".$usuario."'";
+	$sqlusu = "select * from dbusuarios where email = '".$usuario."' and activo = '1'";
 
 	$error = '';
 
@@ -51,40 +51,17 @@ function login($usuario,$pass,$sede) {
 			//obtengo el id del usuario
 			$idUsua = mysql_result($respusu,0,0);
 
-			//verifico el rol del usuario
-			$rol = mysql_result($respusu,0,'refroles');
-			if ($rol == 2) {
-				$sqlrol = "select * from dbusuarios where refsedes = ".$sede." and idusuario = ".$idUsua;
-
-				$resRol = $this->query($sqlrol,0);
-				if (mysql_num_rows($resRol) > 0) {
-					$sqlpass = "select nombrecompleto,email,usuario,r.descripcion, r.idrol, u.refpersonal  from dbusuarios u inner join tbroles r on r.idrol = u.refroles where password = '".$pass."' and idusuario = ".$idUsua;
 			
-					$resppass = $this->query($sqlpass,0);
-					
-					if (mysql_num_rows($resppass) > 0) {
-						$error = '';
-					} else {
-						$error = 'Usuario o Password incorrecto';
-					}
-				} else {
-					$error = 'El usuario no tiene permiso para trabajar en esta Sede';
-				}
+			$sqlpass = "select nombrecompleto,email,usuario,r.descripcion, r.idrol, u.refclientes from dbusuarios u inner join tbroles r on r.idrol = u.refroles where password = '".$pass."' and idusuario = ".$idUsua;
+		
+			$resppass = $this->query($sqlpass,0);
+			
+			if (mysql_num_rows($resppass) > 0) {
+				$error = '';
 			} else {
-				$sqlpass = "select nombrecompleto,email,usuario,r.descripcion, r.idrol, u.refpersonal from dbusuarios u inner join tbroles r on r.idrol = u.refroles where password = '".$pass."' and idusuario = ".$idUsua;
-			
-				$resppass = $this->query($sqlpass,0);
-				
-				if (mysql_num_rows($resppass) > 0) {
-					$error = '';
-				} else {
-					$error = 'Usuario o Password incorrecto';
-				}
+				$error = 'Usuario o Password incorrecto';
 			}
-		
-			
-			
-		
+
 		}
 		else
 		
@@ -101,13 +78,7 @@ function login($usuario,$pass,$sede) {
 			$_SESSION['idroll_predio'] = mysql_result($resppass,0,4);
 			$_SESSION['refroll_predio'] = mysql_result($resppass,0,3);
 
-			$_SESSION['idpersonal'] = mysql_result($resppass,0,'refpersonal');
-			
-			$_SESSION['idsede'] = $sede;
-			
-			$sqlSede = "select sede from tbsedes where idsede =".$sede;
-			$sedeDescripcion = mysql_result($this->query($sqlSede,0),0,0);
-			$_SESSION['sede'] = $sedeDescripcion;
+			$_SESSION['idcliente'] = mysql_result($resppass,0,'refclientes');
 			
 			return '';
 		}
@@ -257,9 +228,11 @@ function traerUsuario($email) {
 }
 
 function traerUsuarios() {
-	$sql = "select u.idusuario,u.usuario, u.password, r.descripcion, u.email , u.nombrecompleto, u.refroles
+	$sql = "select u.idusuario,u.usuario, u.password, r.descripcion, u.email , u.nombrecompleto, concat(c.apellido, ' ', c.nombre) as cliente
+			,(case when u.activo = 1 then 'Si' else 'No' end) as activo, u.refroles
 			from dbusuarios u
 			inner join tbroles r on u.refroles = r.idrol 
+			left join dbclientes c on c.idcliente = u.refclientes
 			order by nombrecompleto";
 	$res = $this->query($sql,0);
 	if ($res == false) {
@@ -271,9 +244,11 @@ function traerUsuarios() {
 
 
 function traerUsuariosSimple() {
-	$sql = "select u.idusuario,u.usuario, u.password, r.descripcion, u.email , u.nombrecompleto, u.refroles
+	$sql = "select u.idusuario,u.usuario, u.password, r.descripcion, u.email , u.nombrecompleto, concat(c.apellido, ' ', c.nombre) as cliente
+			,(case when u.activo = 1 then 'Si' else 'No' end) as activo, u.refroles
 			from dbusuarios u
 			inner join tbroles r on u.refroles = r.idrol 
+			left join dbclientes c on c.idcliente = u.refclientes
 			where r.idrol <> 1
 			order by nombrecompleto";
 	$res = $this->query($sql,0);

@@ -36,106 +36,25 @@ function query($sql,$accion) {
 
 
 $tablasAr	= array("clientes"        => "dbclientes",                
-"usuarios"        => "dbusuarios",        
-"proveedores"       => "dbproveedores",       
+"usuarios"        => "dbusuarios",  
+"archivos"		  => "dbarchivos",      
 "predio_menu"     => "predio_menu",       
-"estados"         => "tbestados",                 
-"roles"           => "tbroles",                            
-"tipopago"        => "tbtipopago",
-"salas"		=>	"tbsalas",
-"tiposcargos"		=>	"tbtiposcargos",
-"tipodocumento"		=>	"tbtipodocumento",
-"estadocivil"		=>	"tbestadocivil",
-"tipoconceptos"		=>	"tbtipoconceptos",
-"personal"		=>	"dbpersonal",
-"personalcargos"		=>	"dbpersonalcargos",
-"datosbancos"		=>	"dbdatosbancos",
-"domicilios"		=>	"dbdomicilios",
-"cooperativas"		=>	"dbcooperativas",
-"obras"		=>	"dbobras",
-"obrascooperativas"		=>	"dbobrascooperativas",
-"gastosobras"		=>	"dbgastosobras",
-"cuponeras"		=>	"tbcuponeras",
-"promosobras"	=>	"dbpromosobras",
-"categorias"	=>	"dbcategorias",
-"ventas"		=>	"dbventas",
-"album"			=>	"tbalbum",
-"albumobras"	=>	"dbalbumobras",
-"funciones"	=>	"dbfunciones",
-"dias"=> "tbdias",
-"personalcooperativas"=>"dbpersonalcooperativas",
-"ventadetalle"=>"dbventadetalle",
-"sedes"=>"tbsedes",
-"cabeceraobra"=>"dbcabeceraobra");
+"roles"           => "tbroles");
 
 
 function recursiveTablas($ar, $tabla, $aliasTablaMadre) {
 	
 	$tablasArAux2	= array("clientes"        => "dbclientes",                
-"usuarios"        => "dbusuarios",        
-"proveedores"       => "dbproveedores",       
-"predio_menu"     => "predio_menu",       
-"estados"         => "tbestados",                 
-"roles"           => "tbroles",                            
-"tipopago"        => "tbtipopago",
-"salas"		=>	"tbsalas",
-"tiposcargos"		=>	"tbtiposcargos",
-"tipodocumento"		=>	"tbtipodocumento",
-"estadocivil"		=>	"tbestadocivil",
-"tipoconceptos"		=>	"tbtipoconceptos",
-"personal"		=>	"dbpersonal",
-"personalcargos"		=>	"dbpersonalcargos",
-"datosbancos"		=>	"dbdatosbancos",
-"domicilios"		=>	"dbdomicilios",
-"cooperativas"		=>	"dbcooperativas",
-"obras"		=>	"dbobras",
-"obrascooperativas"		=>	"dbobrascooperativas",
-"gastosobras"		=>	"dbgastosobras",
-"cuponeras"		=>	"tbcuponeras",
-"promosobras"	=>	"dbpromosobras",
-"categorias"	=>	"dbcategorias",
-"ventas"		=>	"dbventas",
-"album"			=>	"tbalbum",
-"albumobras"	=>	"dbalbumobras",
-"funciones"	=>	"dbfunciones",
-"dias"=> "tbdias",
-"personalcooperativas"=>"dbpersonalcooperativas",
-"ventadetalle"=>"dbventadetalle",
-"sedes"=>"tbsedes",
-"cabeceraobra"=>"dbcabeceraobra");
+"usuarios"        => "dbusuarios",  
+"archivos"		  => "dbarchivos",              
+"predio_menu"     => "predio_menu",                     
+"roles"           => "tbroles");
 
 	$tablasArAux	= array("clientes"        => 1,                
-"usuarios"        => 2,        
-"proveedores"       => 1,       
-"predio_menu"     => 1,       
-"estados"         => 1,                 
-"roles"           => 1,                            
-"tipopago"        => 1,
-"salas"		=>	1,
-"tiposcargos"		=>	1,
-"tipodocumento"		=>	1,
-"estadocivil"		=>	1,
-"tipoconceptos"		=>	1,
-"personal"		=>	3,
-"personalcargos"		=>	3,
-"datosbancos"		=>	2,
-"domicilios"		=>	2,
-"cooperativas"		=>	1,
-"obras"		=>	3,
-"obrascooperativas"		=>	3,
-"gastosobras"		=>	2,
-"cuponeras"		=>	1,
-"promosobras"	=>	2,
-"categorias"	=>	3,
-"ventas"		=>	3,
-"album"			=>	1,
-"albumobras"	=>	2,
-"funciones"	=>	3,
-"dias"=> 1,
-"personalcooperativas"=>3,
-"ventadetalle"=>1,
-"sedes"=>1,
-"cabeceraobra"=>1);
+"usuarios"        => 2,  
+"archivos"		  => 1,               
+"predio_menu"     => 1,                       
+"roles"           => 1);
 	
 	$inner= '';
 	$sql	=	"show columns from ".$tabla;
@@ -165,7 +84,7 @@ $ajaxFuncionesController = '';
 
 $servicios	= "Referencias";
 
-$sqlMapaer	= "SHOW FULL TABLES FROM teatrociego";
+$sqlMapaer	= "SHOW FULL TABLES FROM estudiocontable";
 $resMapeo 	=	query($sqlMapaer,0);
 
 $aliasTablaMadre = '';
@@ -315,7 +234,7 @@ if ($res == false) {
 			if ((integer)"."$"."res > 0) { <br>
 				echo ''; <br>
 			} else { <br>
-				echo 'Huvo un error al insertar datos';	 <br>
+				echo 'Hubo un error al insertar datos';	 <br>
 			} <br>
 		
 		} <br>
@@ -330,7 +249,7 @@ if ($res == false) {
 			if ("."$"."res == true) { <br>
 				echo ''; <br>
 			} else { <br>
-				echo 'Huvo un error al modificar datos'; <br>
+				echo 'Hubo un error al modificar datos'; <br>
 			} <br>
 		} <br>
 

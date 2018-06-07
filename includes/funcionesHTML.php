@@ -64,14 +64,7 @@ function menu($usuario,$titulo,$rol,$empresa) {
 				<li style="margin-left:20%;"><span class="glyphicon glyphicon-list" id="colapsarMenu" style="cursor:pointer;"> </span></li>	
 				
 				<li class="navbar-right"><span class="glyphicon glyphicon-user"></span> '.$usuario.'</li>';
-	if (($rol == 'Empleado') || ($rol == 'Actor')) {
-		$menu .= '
-				<li class="navbar-right" style="color:#FC0;">Sede: '.$empresa.'</li>';
 
-	} else {
-		$menu .= '
-				<li class="navbar-right" style="color:#FC0;">Sede: '.$empresa.' <a href="../sedes/cambiarsede.php"> Cambiar</a></li>';
-	}
 	$menu .= '
 
 			</ul>
@@ -83,7 +76,7 @@ function menu($usuario,$titulo,$rol,$empresa) {
 	
 		<div id="navigation" >
 			<div align="center">
-			<img src="../imagenes/dash_logo.png"/ style="padding-bottom:5%;">
+			<img src="../imagenes/dash_logo.png" style="padding-bottom:9%; width:50%">
 			</div>
 				<nav class="nav">
 					<ul>

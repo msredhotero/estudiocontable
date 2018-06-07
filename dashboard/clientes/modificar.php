@@ -22,7 +22,7 @@ $serviciosReferencias 	= new ServiciosReferencias();
 $fecha = date('Y-m-d');
 
 //$resProductos = $serviciosProductos->traerProductosLimite(6);
-$resMenu = $serviciosHTML->menu(utf8_encode($_SESSION['nombre_predio']),"Clientes",$_SESSION['refroll_predio'],$_SESSION['sede']);
+$resMenu = $serviciosHTML->menu(utf8_encode($_SESSION['nombre_predio']),"Clientes",$_SESSION['refroll_predio'],'');
 
 
 $id = $_GET['id'];
@@ -41,15 +41,15 @@ $modificar = "modificarClientes";
 
 $idTabla = "idcliente";
 
-$tituloWeb = "Gestión: Vinoteca";
+$tituloWeb = "Gestión: Estudio Contable";
 //////////////////////// Fin opciones ////////////////////////////////////////////////
 
 
 /////////////////////// Opciones para la creacion del formulario  /////////////////////
 $tabla 			= "dbclientes";
 
-$lblCambio	 	= array("nombrecompleto","fechanacimiento","telefono","direccion");
-$lblreemplazo	= array("Nombre Completo","Fecha Nacimiento","Teléfono","dirección");
+$lblCambio	 	= array("telefono","direccion");
+$lblreemplazo	= array("Teléfono","dirección");
 
 
 $cadRef 	= '';
