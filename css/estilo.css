@@ -12,9 +12,6 @@ body {
 	height: auto !important;
 	height: 100%;
 	margin: 0 auto -60px;
-	background: url(../imagenes/bg_teatro_1.jpg) 100% 0% no-repeat;
-	background-size: cover;
-/*background:#FFF;*/
 }
 
 
@@ -23,24 +20,6 @@ body {
 
 .fdderecha {float: right; width: 68%; }
 
-.content {
-    height: 100%;
-    margin: 0;
-	/*
-	background-size:cover;
-	background-color:#FFF;
-	border:1px solid #CCC;
-	-moz-border-radius: 0.6em;
-    -webkit-border-radius: 0.6em;
-    border-radius: 0.6em;
-    -moz-transition: all 1s ease;
-    -o-transition: all 1s ease;
-    -webkit-transition: all 1s ease;
-    transition: all 1s ease;
-    -webkit-box-shadow: 2px 2px 10px 0px rgba(22,36,97,1);
-	-moz-box-shadow: 2px 2px 10px 0px rgba(22,36,97,1);
-	box-shadow: 2px 2px 10px 0px rgba(22,36,97,1);*/
-}
 
 .clearfix:before,
 .clearfix:after {
@@ -125,35 +104,64 @@ body {
 	text-align:left;
 }
 
+/*usado*/
+.content {
+	height: 100%;
+	margin: 0;
+	padding: 5em 0 0 0;
+}
+.c_login {
+	background: url(../imagenes/bk_login.jpg) 100% 0% no-repeat;
+	background-size: cover;
+}
 /* Menu de navegacion */
 
 .contenedorMenu {
-	width:740px;
+	width:55%;
 	margin:0 auto;
 }
+.contenedorMenu img {max-width: 148px;}
 
 #menu {
-	height:40px;
+	height:90px;
 	width:100%;
+	background: #8ab5dd;
 }
 
 #menu ul {
-	padding:0;
-	height:40px;
-	width:1000px;
+	margin:30px 0 0;
+	width:73%;
 	color:#666;
+	display:inline-block;
 }
 
 #menu li {
 	display:inline;
-	float:left;
-	border-radius: 7px 7px 0px 0px;
--moz-border-radius: 7px 7px 0px 0px;
--webkit-border-radius: 7px 7px 0px 0px;
-margin-right:6px;
-	
 }
 
+#menu a {
+	display:inline-block;
+	width:100px;
+	text-align:center;
+	text-decoration:none;
+	color: black;
+	font-size: 15px;
+}
+#menu em {
+	font-size: 18px;
+}
+.logueo section {
+	max-width:480px;
+	padding-top:10px;
+	padding-top:60px;
+	padding:25px;
+	background-color: #ffffff;
+	box-shadow: 2px 2px 3px #333;
+	-webkit-box-shadow: 2px 2px 3px #333;
+	-moz-box-shadow: 2px 2px 3px #333;">
+
+}
+/*usado*/
 #separar {
 	width:90px;
 	 display:block;
@@ -164,24 +172,7 @@ margin-right:6px;
 	width:100px;
 }*/
 
-#menu a {
-	border-right:1px solid #9a9a9a;
-	border-left:1px solid #9a9a9a;
-	border-top:1px solid #9a9a9a;
-	
-	border-radius: 7px 7px 0px 0px;
--moz-border-radius: 7px 7px 0px 0px;
--webkit-border-radius: 7px 7px 0px 0px;
-	display:inline-block;
-	width:100px;
-	/*max-width:100px;
-	padding-left:25px;
-	padding-right:25px;*/
-	text-align:center;
-	text-decoration:none;
-	line-height:40px;
-	/*text-shadow:1px 1px 0px #FFF;*/
-}
+
 
 .torneoMenu {
 	background-color:#0e9ff6;

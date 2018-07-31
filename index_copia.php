@@ -163,79 +163,84 @@ $servicios = new Servicios();
 
 <body>
 
-
-<div class="content">
+<div id="menu">
+    <div class="contenedorMenu">
+        <img src="imagenes/logo.png" alt="B y M estudio" />
+        <ul>
+            <li><a href="" alt="Inicio">Inicio</a></li>
+            <li><a href="" alt="Novedades">Novedades</a></li>
+            <li><a href="" alt="Contacto">Contacto</a></li>
+            <li><a href="" alt="Ingreso">Ingreso</a></li>
+            <li><em>0341 4302789</em></li>
+        </ul>
+    </div>
+</div>
+<div class="content c_login">
 
 <!--<div class="row" style="margin-top:10px; font-family:Verdana, Geneva, sans-serif;" align="center">
 		<img src="imagenes/logo.png" width="300" height="273">
    
 </div>-->
-<div class="contenedorMenu"><br /></div>
 
-<div class="logueo" align="center">
-<br>
-<br>
-<br>
-	<section style="width:700px; padding-top:10px; padding-top:60px;padding:25px;
-background-color: #ffffff; border:1px solid #101010; box-shadow: 2px 2px 3px #333;-webkit-box-shadow: 2px 2px 3px #333;-moz-box-shadow: 2px 2px 3px #333;">
-			<div id="error" style="text-align:left; color:#666;">
-            
-            </div>
+    <div class="logueo" align="center">
+        <section>                <div id="error" style="text-align:left; color:#666;">
 
-            <div align="center">
-            	<img src="imagenes/logo_cara.png" width="22%">
-				<div align="center"><p style="color:#363636; font-size:28px;">Acceso al panel de control</p></div>
-                <br>
-            </div>
-			<form role="form" class="form-horizontal">
-              
-
-              <div class="form-group">
-                <label for="usuario" class="col-md-2 control-label" style="color:#363636;text-align:left;">E-Mail</label>
-                <div class="col-lg-7">
-                <div class="input-group">
-                  <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                  <input type="email" class="form-control" id="email" name="email" 
-                         placeholder="E-Mail">
-                </div>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="ejemplo_password_2" class="col-md-2 control-label" style="color:#363636;text-align:left;">Contraseña</label>
-                <div class="col-lg-7">
-                <div class="input-group">
-                  <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                  <input type="password" class="form-control" id="pass" name="pass" 
-                         placeholder="password">
-                </div>
-                </div>
-              </div>
-              
-              
-              
-              
-              <div class="form-group">
-              	<label for="olvido" class="control-label" style="color:#363636">¿Has olvidado tu contraseña?. <a href="recuperarpasswor.php">Recuperar.</a></label>
-              </div>
-             
-              <div class="form-group">
-                <div class="col-md-12">
-                  <button type="button" class="btn btn-default" id="login">Login</button>
-                </div>
-              </div>
-				
-                <div id="load">
-                
                 </div>
 
-            </form>
+                <div align="center">
+                    <img src="imagenes/logo_cara.png" width="22%">
+                    <div align="center"><p style="color:#363636; font-size:28px;">Acceso al panel de control</p></div>
+                    <br>
+                </div>
+                <form role="form" class="form-horizontal">
 
-     </section>
-     <br>
-     <br>
-     <br>
-     </div>
+
+                  <div class="form-group">
+                    <label for="usuario" class="col-md-2 control-label" style="color:#363636;text-align:left;">E-Mail</label>
+                    <div class="col-lg-7">
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                      <input type="email" class="form-control" id="email" name="email"
+                             placeholder="E-Mail">
+                    </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="ejemplo_password_2" class="col-md-2 control-label" style="color:#363636;text-align:left;">Contraseña</label>
+                    <div class="col-lg-7">
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                      <input type="password" class="form-control" id="pass" name="pass"
+                             placeholder="password">
+                    </div>
+                    </div>
+                  </div>
+
+
+
+
+                  <div class="form-group">
+                    <label for="olvido" class="control-label" style="color:#363636">¿Has olvidado tu contraseña?. <a href="recuperarpasswor.php">Recuperar.</a></label>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-md-12">
+                      <button type="button" class="btn btn-default" id="login">Login</button>
+                    </div>
+                  </div>
+
+                    <div id="load">
+
+                    </div>
+
+                </form>
+
+         </section>
+         <br>
+         <br>
+         <br>
+    </div>
 </div><!-- fin del content -->
 
 
