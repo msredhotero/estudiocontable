@@ -27,6 +27,12 @@ $resMenu = $serviciosHTML->menu($_SESSION['nombre_predio'],"Dashboard",$_SESSION
 if ($_SESSION['idroll_predio'] == 2) {
 	$idcliente = $_SESSION['idcliente'];
 	$resCliente = $serviciosReferencias->traerClientesPorId($idcliente);
+} else {
+	$cabeceras 		= "	<th>Apellido y Nombre</th>
+					<th>Categoria</th>
+					<th>Año</th>
+					<th>Mes</th>";
+	$lstCargados 	= $serviciosFunciones->camposTablaView($cabeceras,$serviciosReferencias->traerArchivosGrid(),89);
 }
 
 ?>
@@ -133,6 +139,14 @@ if ($_SESSION['idroll_predio'] == 2) {
                     <div class="cuerpoBox" id="resultadosArchivos">
     
                     </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                	<div class="panel panel-primary">
+					  <div class="panel-heading">Archivos</div>
+					  <div class="panel-body"><?php echo $lstCargados; ?></div>
+					</div>
+                	
                 </div>
                 <?php } else { ?>
                 <ul class="list-group">
@@ -388,6 +402,14 @@ $(document).ready(function(){
 			}
 		  }
 	} );
+
+	$("#example").on("click",'.vardescargar', function(){
+		usersid =  $(this).attr("id");
+
+		url = "descargar.php?token=" + usersid;
+		$(location).attr('href',url);
+
+	});//fin del boton modificar
 
 
 	

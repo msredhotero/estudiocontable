@@ -73,9 +73,57 @@ break;
 case 'traerArchivosPorCliente':
 	traerArchivosPorCliente($serviciosReferencias);
 	break;
+
+	case 'insertarCategorias': 
+	insertarCategorias($serviciosReferencias); 
+	break; 
+	case 'modificarCategorias': 
+	modificarCategorias($serviciosReferencias); 
+	break; 
+	case 'eliminarCategorias': 
+	eliminarCategorias($serviciosReferencias); 
+	break; 
 }
 
 /* Fin */
+
+
+function insertarCategorias($serviciosReferencias) { 
+	$categoria = $_POST['categoria']; 
+	
+	$res = $serviciosReferencias->insertarCategorias($categoria); 
+	
+	if ((integer)$res > 0) { 
+		echo ''; 
+	} else { 
+		echo 'Hubo un error al insertar datos';	 
+	} 
+} 
+
+
+function modificarCategorias($serviciosReferencias) { 
+	$id = $_POST['id']; 
+	$categoria = $_POST['categoria']; 
+	
+	$res = $serviciosReferencias->modificarCategorias($id,$categoria); 
+	
+	if ($res == true) { 
+		echo ''; 
+	} else { 
+		echo 'Hubo un error al modificar datos'; 
+	} 
+} 
+
+
+function eliminarCategorias($serviciosReferencias) { 
+	$id = $_POST['id']; 
+	
+	$res = $serviciosReferencias->eliminarCategorias($id); 
+	
+	echo $res; 
+} 
+
+
 
 function traerArchivosPorCliente($serviciosReferencias) {
 	$id = $_POST['id'];
@@ -125,9 +173,13 @@ function insertarArchivos($serviciosReferencias) {
 	$token = $_POST['token']; 
 	//$imagen = $_POST['imagen'];  
 	$observacion = $_POST['observacion']; 
+
+	$refcategorias = $_POST['refcategorias'];
+	$anio = $_POST['anio'];
+	$mes = $_POST['mes'];
 	
 	if ($_FILES['imagen']['tmp_name'] != '') {
-		$res = $serviciosReferencias->subirArchivo('imagen',$refclientes,$serviciosReferencias->obtenerNuevoId('dbarchivos'),$token,$observacion); 
+		$res = $serviciosReferencias->subirArchivo('imagen',$refclientes,$serviciosReferencias->obtenerNuevoId('dbarchivos'),$token,$observacion, $refcategorias, $anio, $mes); 
 		
 		if ($res == '') { 
 			echo ''; 

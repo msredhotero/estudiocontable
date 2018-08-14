@@ -114,14 +114,14 @@ function crearDirectorioPrincipal($dir) {
 	function obtenerNuevoId($tabla) {
         //u235498999_aif
         $sql = "SELECT AUTO_INCREMENT FROM information_schema.TABLES
-                WHERE TABLE_SCHEMA = 'u235498999_estud' 
+                WHERE TABLE_SCHEMA = 'estudiocontable' 
                 AND TABLE_NAME = '".$tabla."'";
         $res = $this->query($sql,0);
         return mysql_result($res, 0,0);
     }
 
 
-	function subirArchivo($file,$carpeta,$id,$token,$observacion) {
+	function subirArchivo($file,$carpeta,$id,$token,$observacion, $refcategorias, $anio, $mes) {
 		
 		
 		$dir_destino_padre = '../archivos/'.$carpeta.'/';
@@ -171,7 +171,7 @@ function crearDirectorioPrincipal($dir) {
 
 						$zip->close();
 						
-						$this->insertarArchivos($carpeta,$token,str_replace(' ','',$archivo),$tipoarchivo, $observacion);
+						$this->insertarArchivos($carpeta,$token,str_replace(' ','',$archivo),$tipoarchivo, $observacion, $refcategorias, $anio, $mes);
 
 						echo "";
 						
@@ -314,18 +314,18 @@ function descargar($token) {
 
 
 /* PARA Archivos */
-function insertarArchivos($refclientes,$token,$imagen,$type,$observacion) { 
-$sql = "insert into dbarchivos(idarchivo,refclientes,token,imagen,type,observacion) 
-values ('',".$refclientes.",'".($token)."','".($imagen)."','".($type)."','".($observacion)."')"; 
+function insertarArchivos($refclientes,$token,$imagen,$type,$observacion,$refcategorias,$anio,$mes) { 
+$sql = "insert into dbarchivos(idarchivo,refclientes,token,imagen,type,observacion, refcategorias, anio, mes) 
+values ('',".$refclientes.",'".($token)."','".($imagen)."','".($type)."','".($observacion)."',".$refcategorias.",".$anio.",".$mes.")"; 
 $res = $this->query($sql,1); 
 return $res; 
 } 
 
 
-function modificarArchivos($id,$refclientes,$token,$imagen,$type,$observacion) { 
+function modificarArchivos($id,$refclientes,$token,$imagen,$type,$observacion,$refcategorias,$anio,$mes) { 
 $sql = "update dbarchivos 
 set 
-refclientes = ".$refclientes.",token = '".($token)."',imagen = '".($imagen)."',type = '".($type)."',observacion = '".($observacion)."' 
+refclientes = ".$refclientes.",token = '".($token)."',imagen = '".($imagen)."',type = '".($type)."',observacion = '".($observacion)."' ,refcategorias = ".$refcategorias.",anio = ".$anio.",mes = ".$mes."
 where idarchivo =".$id; 
 $res = $this->query($sql,0); 
 return $res; 
@@ -354,6 +354,27 @@ return $res;
 } 
 
 
+function traerArchivosGrid() { 
+$sql = "select 
+a.token,
+concat(c.apellido, ' ', c.nombre) as apyn,
+cat.categoria,
+a.anio,
+a.mes,
+a.refclientes,
+a.token,
+a.imagen,
+a.type,
+a.observacion
+from dbarchivos a 
+inner join dbclientes c on c.idcliente = a.refclientes
+inner join tbcategorias cat on cat.idcategoria = a.refcategorias
+order by 1"; 
+$res = $this->query($sql,0); 
+return $res; 
+} 
+
+
 function traerArchivosPorId($id) { 
 $sql = "select idarchivo,refclientes,token,imagen,type,observacion from dbarchivos where idarchivo =".$id; 
 $res = $this->query($sql,0); 
@@ -368,9 +389,16 @@ a.refclientes,
 a.token,
 a.imagen,
 a.type,
-a.observacion
+a.observacion,
+cat.categoria,
+a.anio,
+a.mes,
+c.apellido,
+c.nombre
 from dbarchivos a 
-where token = '".$token."'"; 
+inner join dbclientes c on c.idcliente = a.refclientes
+inner join tbcategorias cat on cat.idcategoria = a.refcategorias
+where a.token = '".$token."'"; 
 $res = $this->query($sql,0); 
 return $res; 
 } 
@@ -378,6 +406,9 @@ return $res;
 function traerArchivosPorCliente($idcliente) {
 	$sql = "select 
 a.idarchivo,
+cat.categoria,
+a.anio,
+a.mes,
 a.observacion,
 a.imagen,
 a.refclientes,
@@ -385,6 +416,8 @@ a.token,
 a.fechacreacion,
 a.type
 from dbarchivos a 
+inner join dbclientes c on c.idcliente = a.refclientes
+inner join tbcategorias cat on cat.idcategoria = a.refcategorias
 where refclientes = ".$idcliente; 
 $res = $this->query($sql,0); 
 return $res; 
@@ -689,7 +722,52 @@ return $res;
 
 
 
+/* PARA Categorias */
 
+function insertarCategorias($categoria) { 
+$sql = "insert into tbcategorias(idcategoria,categoria) 
+values ('','".($categoria)."')"; 
+$res = $this->query($sql,1); 
+return $res; 
+} 
+
+
+function modificarCategorias($id,$categoria) { 
+$sql = "update tbcategorias 
+set 
+categoria = '".($categoria)."' 
+where idcategoria =".$id; 
+$res = $this->query($sql,0); 
+return $res; 
+} 
+
+
+function eliminarCategorias($id) { 
+$sql = "delete from tbcategorias where idcategoria =".$id; 
+$res = $this->query($sql,0); 
+return $res; 
+} 
+
+
+function traerCategorias() { 
+$sql = "select 
+c.idcategoria,
+c.categoria
+from tbcategorias c 
+order by 1"; 
+$res = $this->query($sql,0); 
+return $res; 
+} 
+
+
+function traerCategoriasPorId($id) { 
+$sql = "select idcategoria,categoria from tbcategorias where idcategoria =".$id; 
+$res = $this->query($sql,0); 
+return $res; 
+} 
+
+/* Fin */
+/* PARA Categorias */
 
 
 

@@ -37,7 +37,8 @@ function query($sql,$accion) {
 
 $tablasAr	= array("clientes"        => "dbclientes",                
 "usuarios"        => "dbusuarios",  
-"archivos"		  => "dbarchivos",      
+"archivos"		  => "dbarchivos",
+"categorias"		  => "tbcategorias",      
 "predio_menu"     => "predio_menu",       
 "roles"           => "tbroles");
 
@@ -46,13 +47,15 @@ function recursiveTablas($ar, $tabla, $aliasTablaMadre) {
 	
 	$tablasArAux2	= array("clientes"        => "dbclientes",                
 "usuarios"        => "dbusuarios",  
-"archivos"		  => "dbarchivos",              
+"archivos"		  => "dbarchivos",  
+"categorias"		  => "tbcategorias",              
 "predio_menu"     => "predio_menu",                     
 "roles"           => "tbroles");
 
 	$tablasArAux	= array("clientes"        => 1,                
 "usuarios"        => 2,  
-"archivos"		  => 1,               
+"archivos"		  => 1,  
+"categorias"		  => 1,               
 "predio_menu"     => 1,                       
 "roles"           => 1);
 	

@@ -14,61 +14,66 @@ include ('../../includes/funcionesUsuarios.php');
 include ('../../includes/funcionesHTML.php');
 include ('../../includes/funcionesReferencias.php');
 
-
-$serviciosFunciones = new Servicios();
-$serviciosUsuario 	= new ServiciosUsuarios();
-$serviciosHTML 		= new ServiciosHTML();
-$serviciosReferencias = new ServiciosReferencias();
+$serviciosFunciones 	= new Servicios();
+$serviciosUsuario 		= new ServiciosUsuarios();
+$serviciosHTML 			= new ServiciosHTML();
+$serviciosReferencias 	= new ServiciosReferencias();
 
 $fecha = date('Y-m-d');
 
 //$resProductos = $serviciosProductos->traerProductosLimite(6);
-$resMenu = $serviciosHTML->menu(utf8_encode($_SESSION['nombre_predio']),"Clientes",$_SESSION['refroll_predio'],'');
+$resMenu = $serviciosHTML->menu(utf8_encode($_SESSION['nombre_predio']),"Categorias",$_SESSION['refroll_predio'],'');
 
-$token = $serviciosReferencias->GUID();
+
+/////////////////////// Opciones pagina ///////////////////////////////////////////////
+$singular = "Categoria";
+
+$plural = "Categorias";
+
+$eliminar = "eliminarCategorias";
+
+$insertar = "insertarCategorias";
+
+$tituloWeb = "Gestión: Estudio Contable";
+//////////////////////// Fin opciones ////////////////////////////////////////////////
 
 
 /////////////////////// Opciones para la creacion del formulario  /////////////////////
-$tabla 			= "dbarchivos";
+$tabla 			= "tbcategorias";
 
-$lblCambio	 	= array("refclientes","refcategorias","anio");
-$lblreemplazo	= array("Cliente","Categorias","Año");
+$lblCambio	 	= array();
+$lblreemplazo	= array();
 
-if ($_SESSION['idroll_predio'] == 1) {
-	$idcliente = $_GET['id'];
+
+$cadRef 	= '';
+
+$refdescripcion = array();
+$refCampo 	=  array();
+//////////////////////////////////////////////  FIN de los opciones //////////////////////////
+
+
+
+
+/////////////////////// Opciones para la creacion del view  apellido,nombre,nrodocumento,fechanacimiento,direccion,telefono,email/////////////////////
+$cabeceras 		= "	<th>Categorias</th>";
+
+//////////////////////////////////////////////  FIN de los opciones //////////////////////////
+
+
+
+
+$formulario 	= $serviciosFunciones->camposTabla($insertar ,$tabla,$lblCambio,$lblreemplazo,$refdescripcion,$refCampo);
+
+$lstCargados 	= $serviciosFunciones->camposTablaView($cabeceras,$serviciosReferencias->traerCategorias(),1);
+
+
+
+if ($_SESSION['refroll_predio'] != 1) {
+
 } else {
-	$idcliente = $_SESSION['idcliente'];
+
+	
 }
-
-
-$refClientes = $serviciosReferencias->traerClientesPorId($idcliente);
-$cadRef = $serviciosFunciones->devolverSelectBoxObligatorio($refClientes,array(2,3),' ');
-
-$refCate = $serviciosReferencias->traerCategorias();
-$cadRef2 = $serviciosFunciones->devolverSelectBoxObligatorio($refCate,array(1),' ');
-
-$refdescripcion = array(0 => $cadRef, 1=>$cadRef2);
-$refCampo 	=  array("refclientes","refcategorias"); 
-//////////////////////////////////////////////  FIN de los opciones //////////////////////////
-
-
-
-
-/////////////////////// Opciones para la creacion del view  /////////////////////
-$cabeceras 		= "	<th>Categoria</th>
-					<th>Año</th>
-					<th>Mes</th>
-				<th>Observacion</th>
-				<th>Archivo</th>";
-
-//////////////////////////////////////////////  FIN de los opciones //////////////////////////
-
-
-
-
-$formulario 	= $serviciosFunciones->camposTabla("insertarArchivos",$tabla,$lblCambio,$lblreemplazo,$refdescripcion,$refCampo);
-
-$lstCargados 	= $serviciosFunciones->camposTablaView($cabeceras,$serviciosReferencias->traerArchivosPorCliente($idcliente),5);
 
 
 ?>
@@ -84,7 +89,7 @@ $lstCargados 	= $serviciosFunciones->camposTablaView($cabeceras,$serviciosRefere
 
 
 
-<title>Gestión: Estudio Contable</title>
+<title><?php echo $tituloWeb; ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
@@ -99,12 +104,11 @@ $lstCargados 	= $serviciosFunciones->camposTablaView($cabeceras,$serviciosRefere
     
 	<!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../../css/bootstrap-datetimepicker.min.css">
 	171
     <!-- Latest compiled and minified JavaScript -->
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
-
-	<script src="../../js/jquery.number.min.js"></script>
+	<link rel="stylesheet" href="../../css/bootstrap-datetimepicker.min.css">
+	
     
    
    <link href="../../css/perfect-scrollbar.css" rel="stylesheet">
@@ -117,6 +121,8 @@ $lstCargados 	= $serviciosFunciones->camposTablaView($cabeceras,$serviciosRefere
         $('#navigation').perfectScrollbar();
       });
     </script>
+    
+ 
 </head>
 
 <body>
@@ -125,26 +131,26 @@ $lstCargados 	= $serviciosFunciones->camposTablaView($cabeceras,$serviciosRefere
 
 <div id="content">
 
-<h3>Usuarios</h3>
+<h3><?php echo $plural; ?></h3>
 
     <div class="boxInfoLargo">
         <div id="headBoxInfo">
-        	<p style="color: #fff; font-size:18px; height:16px;">Carga de Usuarios</p>
+        	<p style="color: #fff; font-size:18px; height:16px;">Carga de <?php echo $plural; ?></p>
         	
         </div>
     	<div class="cuerpoBox">
-        	<form class="form-inline formulario" role="form" enctype="multipart/form-data">
+        	<form class="form-inline formulario" role="form">
         	<div class="row">
-        	<div class="col-md-12">	
-	        	<div class="alert alert-info">
-	        		<p><span class="glyphicon glyphicon-info-sign"></span> Recuerde de subir archivos son caracteres especiales como ser #$%&/()=?*!°|.;,</p>
-	        	</div>
-        	</div>
 			<?php echo $formulario; ?>
             </div>
-            
+            <!--
+            <div class="row">
+            	<div id="map" ></div>
+
+            </div>
+            -->
             <div class='row' style="margin-left:25px; margin-right:25px;">
-                <div class='alert alerta'>
+                <div class='alert'>
                 
                 </div>
                 <div id='load'>
@@ -167,7 +173,7 @@ $lstCargados 	= $serviciosFunciones->camposTablaView($cabeceras,$serviciosRefere
     
     <div class="boxInfoLargo">
         <div id="headBoxInfo">
-        	<p style="color: #fff; font-size:18px; height:16px;">Archivos Cargados</p>
+        	<p style="color: #fff; font-size:18px; height:16px;"><?php echo $plural; ?> Cargados</p>
         	
         </div>
     	<div class="cuerpoBox">
@@ -184,16 +190,17 @@ $lstCargados 	= $serviciosFunciones->camposTablaView($cabeceras,$serviciosRefere
 
 
 </div>
-<div id="dialog2" title="Eliminar archivos">
+<div id="dialog2" title="Eliminar <?php echo $singular; ?>">
     	<p>
         	<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
-            ¿Esta seguro que desea eliminar el archivo?.<span id="proveedorEli"></span>
+            ¿Esta seguro que desea eliminar el <?php echo $singular; ?>?.<span id="proveedorEli"></span>
         </p>
-        <p><strong>Importante: </strong>Si elimina el equipo se perderan todos los datos de este</p>
+        <p><strong>Importante: </strong>Si elimina el <?php echo $singular; ?> se perderan todos los datos de este</p>
         <input type="hidden" value="" id="idEliminar" name="idEliminar">
 </div>
 <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
 <script src="../../bootstrap/js/dataTables.bootstrap.js"></script>
+
 <script src="../../js/bootstrap-datetimepicker.min.js"></script>
 <script src="../../js/bootstrap-datetimepicker.es.js"></script>
 
@@ -225,9 +232,7 @@ $(document).ready(function(){
 			}
 		  }
 	} );
-
-	$('#anio').number( true, 0,'.','' );
-	$('#mes').number( true, 0,'.','' );
+	
 
 	$("#example").on("click",'.varborrar', function(){
 		  usersid =  $(this).attr("id");
@@ -242,10 +247,6 @@ $(document).ready(function(){
 			alert("Error, vuelva a realizar la acción.");	
 		  }
 	});//fin del boton eliminar
-
-	$('#token').val('<?php echo $token; ?>');
-	$('#token').prop('readOnly', true);
-	
 	
 	$("#example").on("click",'.varmodificar', function(){
 		  usersid =  $(this).attr("id");
@@ -258,6 +259,18 @@ $(document).ready(function(){
 		  }
 	});//fin del boton modificar
 
+
+	$("#example").on("click",'.vararchivos', function(){
+		  usersid =  $(this).attr("id");
+		  if (!isNaN(usersid)) {
+			
+			url = "archivos.php?id=" + usersid;
+			$(location).attr('href',url);
+		  } else {
+			alert("Error, vuelva a realizar la acción.");	
+		  }
+	});//fin del boton archivos
+
 	 $( "#dialog2" ).dialog({
 		 	
 			    autoOpen: false,
@@ -269,7 +282,7 @@ $(document).ready(function(){
 				    "Eliminar": function() {
 	
 						$.ajax({
-									data:  {id: $('#idEliminar').val(), accion: 'eliminarUsuario'},
+									data:  {id: $('#idEliminar').val(), accion: '<?php echo $eliminar; ?>'},
 									url:   '../../ajax/ajax.php',
 									type:  'post',
 									beforeSend: function () {
@@ -331,31 +344,31 @@ $(document).ready(function(){
 				success: function(data){
 
 					if (data == '') {
-                                            $(".alerta").removeClass("alert-danger");
-											$(".alerta").removeClass("alert-info");
-                                            $(".alerta").addClass("alert-success");
-                                            $(".alerta").html('<strong>Ok!</strong> Se cargo exitosamente el <strong>Archivo</strong>. ');
-											$(".alerta").delay(3000).queue(function(){
+                                            $(".alert").removeClass("alert-danger");
+											$(".alert").removeClass("alert-info");
+                                            $(".alert").addClass("alert-success");
+                                            $(".alert").html('<strong>Ok!</strong> Se cargo exitosamente el <strong><?php echo $singular; ?></strong>. ');
+											$(".alert").delay(3000).queue(function(){
 												/*aca lo que quiero hacer 
 												  después de los 2 segundos de retraso*/
 												$(this).dequeue(); //continúo con el siguiente ítem en la cola
 												
 											});
 											$("#load").html('');
-											url = "archivos.php?id=<?php echo $idcliente; ?>";
+											url = "index.php";
 											$(location).attr('href',url);
                                             
 											
                                         } else {
-                                        	$(".alerta").removeClass("alert-danger");
-                                            $(".alerta").addClass("alert-danger");
-                                            $(".alerta").html('<strong>Error!</strong> '+data);
+                                        	$(".alert").removeClass("alert-danger");
+                                            $(".alert").addClass("alert-danger");
+                                            $(".alert").html('<strong>Error!</strong> '+data);
                                             $("#load").html('');
                                         }
 				},
 				//si ha ocurrido un error
 				error: function(){
-					$(".alerta").html('<strong>Error!</strong> Actualice la pagina');
+					$(".alert").html('<strong>Error!</strong> Actualice la pagina');
                     $("#load").html('');
 				}
 			});
@@ -364,6 +377,7 @@ $(document).ready(function(){
 
 });
 </script>
+
 <script type="text/javascript">
 $('.form_date').datetimepicker({
 	language:  'es',
@@ -377,7 +391,6 @@ $('.form_date').datetimepicker({
 	format: 'dd/mm/yyyy'
 });
 </script>
-
 <?php } ?>
 </body>
 </html>

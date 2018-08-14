@@ -200,6 +200,14 @@ class Servicios {
 				$lblVer = 'Ver';
 				$idresultados = "resultados";
 				break;
+			case 89:
+				$cantidad = 4;
+				$classMod = '';
+				$classEli = 'vardescargar';
+				$iconoVar2 = 'glyphicon glyphicon-download-alt';
+				$lblVar2	  = 'Decargar';
+				$idresultados = "resultados";
+				break;
 			default:
 				$classMod = 'varmodificar';
 				$classEli = 'varborrar';
@@ -306,7 +314,7 @@ class Servicios {
 									<td>
 										
 										<div class="btn-group">
-											<button class="btn btn-success" type="button">Action</button>
+											<button class="btn btn-success" type="button">Acciones</button>
 											
 											<button class="btn btn-success dropdown-toggle" data-toggle="dropdown" type="button">
 											<span class="caret"></span>
@@ -316,7 +324,7 @@ class Servicios {
 											<ul class="dropdown-menu" role="menu">
 											
 												<li>
-												<a href="javascript:void(0)" class="'.$classEli.'" id="'.$row[0].'">Delete</a>
+												<a href="javascript:void(0)" class="'.$classEli.'" id="'.$row[0].'">'.'<span class="'.$iconoVar2.'"></span> '.$lblVar2.'</a>
 												</li>
 												
 											</ul>
